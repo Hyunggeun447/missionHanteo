@@ -4,6 +4,7 @@ import static mission.mission.domain.board.constant.BoardConstant.MEMBER_BOARD_S
 import static mission.mission.domain.board.constant.BoardConstant.NOTICE_BOARD_NAME;
 import static mission.mission.domain.board.constant.BoardConstant.NOTICE_BOARD_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import mission.mission.domain.board.dto.request.CreateBoardRequest;
 import mission.mission.domain.board.dto.request.UpdateBoardRequest;
@@ -16,6 +17,7 @@ import mission.mission.domain.team.entity.Team;
 import mission.mission.domain.team.repository.TeamRepository;
 import mission.mission.domain.team.value.Gender;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -65,12 +67,6 @@ class BoardServiceTest {
           .teamId(team.getId())
           .boardType(BoardType.NOTICE)
           .build();
-    }
-
-    @AfterEach
-    void clean() {
-      teamRepository.deleteAll();
-      boardRepository.deleteAll();
     }
 
     @Test
@@ -187,6 +183,52 @@ class BoardServiceTest {
 
       assertThat(team1.getBoardList()).doesNotContain(noticeBoard);
       assertThat(team2.getBoardList()).contains(noticeBoard);
+    }
+
+  }
+
+  @Nested
+  @DisplayName("delete")
+  class delete {
+
+    Team team1;
+
+    Long memberId;
+    Long noticeId;
+
+    @BeforeEach
+    void setup() {
+      team1 = teamRepository.save(new Team("엑소", Gender.MALE));
+
+      memberId = boardService.saveBoard(
+          CreateBoardRequest.builder()
+              .name("백현")
+              .teamId(team1.getId())
+              .boardType(BoardType.MEMBER)
+              .build());
+
+      noticeId = boardService.saveBoard(
+          CreateBoardRequest.builder()
+              .teamId(team1.getId())
+              .boardType(BoardType.NOTICE)
+              .build());
+    }
+
+    @Test
+    @DisplayName("성공: 연관관계 제거 후 삭제")
+    public void s() throws Exception {
+
+      //given
+      Board board = boardRepository.findById(memberId).orElseThrow(RuntimeException::new);
+
+      //when
+      boardService.delete(memberId);
+
+      //then
+      assertThrows(RuntimeException.class,
+          () -> boardRepository.findById(memberId).orElseThrow(RuntimeException::new));
+
+      assertThat(team1.getBoardList()).doesNotContain(board);
     }
 
   }
