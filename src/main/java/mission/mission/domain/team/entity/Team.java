@@ -2,6 +2,7 @@ package mission.mission.domain.team.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -48,7 +49,7 @@ public class Team {
   private Boolean existNotice = Boolean.FALSE;
 
   @BatchSize(size = 100)
-  @OneToMany(mappedBy = "team", orphanRemoval = true)
+  @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
   private List<Board> boardList = new ArrayList<>();
 
   @Column(name = "is_deleted")
