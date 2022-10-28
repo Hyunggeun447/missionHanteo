@@ -1,5 +1,6 @@
 package mission.mission.domain.board.entity;
 
+import static mission.mission.domain.board.constant.BoardConstant.NOTICE_BOARD_NAME;
 import static mission.mission.domain.board.constant.BoardConstant.NOTICE_BOARD_SEQ;
 
 import java.util.Objects;
@@ -16,10 +17,11 @@ import mission.mission.domain.team.entity.Team;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class NoticeBoard extends Board{
 
+  private String name = NOTICE_BOARD_NAME;
   private int seq = NOTICE_BOARD_SEQ;
 
-  public NoticeBoard(String name, Team team) {
-    super(name);
+  public NoticeBoard(Team team) {
+    super();
     addTeam(team);
   }
 

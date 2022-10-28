@@ -2,6 +2,7 @@ package mission.mission.domain.board.entity;
 
 import static mission.mission.domain.board.constant.BoardConstant.ANONYMOUS_BOARD_SEQ;
 import static mission.mission.domain.board.constant.BoardConstant.MEMBER_BOARD_SEQ;
+import static mission.mission.domain.board.constant.BoardConstant.NOTICE_BOARD_NAME;
 import static mission.mission.domain.board.constant.BoardConstant.NOTICE_BOARD_SEQ;
 import static org.assertj.core.api.Assertions.*;
 
@@ -60,14 +61,13 @@ class BoardTest {
   public void s_noticeBoard() throws Exception {
 
     //given
-    String name = "첸";
 
     //when
-    NoticeBoard noticeBoard = new NoticeBoard(name, team);
+    NoticeBoard noticeBoard = new NoticeBoard(team);
 
     //then
     assertThat(team.getBoardList().size()).isEqualTo(1);
-    assertThat(noticeBoard.getName()).isEqualTo(name);
+    assertThat(noticeBoard.getName()).isEqualTo(NOTICE_BOARD_NAME);
     assertThat(noticeBoard.getTeam()).isEqualTo(team);
     assertThat(noticeBoard.getSeq()).isEqualTo(NOTICE_BOARD_SEQ);
     assertThat(noticeBoard.getIsDeleted()).isFalse();

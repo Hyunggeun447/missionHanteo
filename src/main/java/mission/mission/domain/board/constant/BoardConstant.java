@@ -11,5 +11,6 @@ public class BoardConstant {
   public static final int MEMBER_BOARD_SEQ = 2;
 
   public static final String ANONYMOUS_BOARD_NAME = "익명게시판";
+  public static final String NOTICE_BOARD_NAME = "공지사항";
 
 }

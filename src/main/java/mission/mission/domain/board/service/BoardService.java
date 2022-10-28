@@ -33,7 +33,7 @@ public class BoardService {
 
     team.validateExistNoticeBoard();
 
-    NoticeBoard noticeBoard = new NoticeBoard(request.getName(), team);
+    NoticeBoard noticeBoard = new NoticeBoard(team);
     team.changeExistNoticeBoard(true);
     return boardRepository.save(noticeBoard).getId();
   }
