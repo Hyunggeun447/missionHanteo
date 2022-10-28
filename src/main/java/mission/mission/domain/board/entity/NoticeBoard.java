@@ -1,6 +1,6 @@
 package mission.mission.domain.board.entity;
 
-import static mission.mission.domain.board.constant.SequenceConstant.NOTICE_BOARD_SEQ;
+import static mission.mission.domain.board.constant.BoardConstant.NOTICE_BOARD_SEQ;
 
 import java.util.Objects;
 import javax.persistence.DiscriminatorValue;

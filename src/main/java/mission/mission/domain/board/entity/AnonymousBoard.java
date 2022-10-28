@@ -1,11 +1,10 @@
 package mission.mission.domain.board.entity;
 
-import static mission.mission.domain.board.constant.SequenceConstant.ANONYMOUS_BOARD_NAME;
-import static mission.mission.domain.board.constant.SequenceConstant.ANONYMOUS_BOARD_SEQ;
+import static mission.mission.domain.board.constant.BoardConstant.ANONYMOUS_BOARD_NAME;
+import static mission.mission.domain.board.constant.BoardConstant.ANONYMOUS_BOARD_SEQ;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mission.mission.domain.team.entity.Team;
