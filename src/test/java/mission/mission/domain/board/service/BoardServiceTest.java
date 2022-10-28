@@ -73,7 +73,7 @@ class BoardServiceTest {
     public void s_memberBoard() throws Exception {
 
       //when
-      Long id = boardService.saveBoard(createMemberRequest);
+      Long id = boardService.save(createMemberRequest);
 
       //then
       MemberBoard board = (MemberBoard) boardRepository.findById(id)
@@ -92,7 +92,7 @@ class BoardServiceTest {
     public void s_noticeBoard() throws Exception {
 
       //when
-      Long id = boardService.saveBoard(createNoticeRequest);
+      Long id = boardService.save(createNoticeRequest);
 
       //then
       NoticeBoard board = (NoticeBoard) boardRepository.findById(id)
@@ -120,14 +120,14 @@ class BoardServiceTest {
       team1 = teamRepository.save(new Team("엑소", Gender.MALE));
       team2 = teamRepository.save(new Team("블랙핑크", Gender.FEMALE));
 
-      memberId = boardService.saveBoard(
+      memberId = boardService.save(
           CreateBoardRequest.builder()
               .name("백현")
               .teamId(team1.getId())
               .boardType(BoardType.MEMBER)
               .build());
 
-      noticeId = boardService.saveBoard(
+      noticeId = boardService.save(
           CreateBoardRequest.builder()
               .teamId(team1.getId())
               .boardType(BoardType.NOTICE)
@@ -199,14 +199,14 @@ class BoardServiceTest {
     void setup() {
       team1 = teamRepository.save(new Team("엑소", Gender.MALE));
 
-      memberId = boardService.saveBoard(
+      memberId = boardService.save(
           CreateBoardRequest.builder()
               .name("백현")
               .teamId(team1.getId())
               .boardType(BoardType.MEMBER)
               .build());
 
-      noticeId = boardService.saveBoard(
+      noticeId = boardService.save(
           CreateBoardRequest.builder()
               .teamId(team1.getId())
               .boardType(BoardType.NOTICE)
