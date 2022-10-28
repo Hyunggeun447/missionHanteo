@@ -18,7 +18,7 @@ public class BoardService {
   private final BoardRepository boardRepository;
   private final TeamRepository teamRepository;
 
-  public Long saveBoard(CreateBoardRequest request) {
+  public Long save(CreateBoardRequest request) {
     Team team = teamRepository.findById(request.getTeamId())
         .orElseThrow(RuntimeException::new);
     Board board = request.getBoardType().createBoard(request.getName(), team);
@@ -35,11 +35,11 @@ public class BoardService {
     board.addTeam(team);
   }
 
-  public void delete(Long id) {
-    Board board = boardRepository.findById(id)
+  public void delete(Long boardId) {
+    Board board = boardRepository.findById(boardId)
         .orElseThrow(RuntimeException::new);
 
     board.removeBoard();
-    boardRepository.deleteById(id);
+    boardRepository.deleteById(boardId);
   }
 }
