@@ -15,7 +15,7 @@ public class UpdateTeamRequest {
 
   private Long id;
 
-  private String teamName;
+  private String name;
 
   private Gender gender;
 

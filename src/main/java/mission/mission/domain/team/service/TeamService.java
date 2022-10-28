@@ -22,7 +22,7 @@ public class TeamService {
 
   public void update(UpdateTeamRequest request) {
     Team team = teamRepository.findById(request.getId()).orElseThrow(RuntimeException::new);
-    team.changeName(request.getTeamName());
+    team.changeName(request.getName());
     team.changeGender(request.getGender());
   }
 
