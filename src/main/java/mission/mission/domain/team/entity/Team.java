@@ -48,8 +48,11 @@ public class Team {
   @Column(name = "exist_notice")
   private Boolean existNotice = Boolean.FALSE;
 
+  @Column(name = "exist_anonymous")
+  private Boolean existAnonymous = Boolean.FALSE;
+
   @BatchSize(size = 100)
-  @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "team")
   private List<Board> boardList = new ArrayList<>();
 
   @Column(name = "is_deleted")
@@ -80,9 +83,20 @@ public class Team {
 
     this.existNotice = aBoolean;
   }
+  public void changeExistAnonymousBoard(Boolean aBoolean) {
+    Assert.notNull(aBoolean, "need aBoolean");
+
+    this.existAnonymous = aBoolean;
+  }
 
   public void validateExistNoticeBoard() {
     if (this.existNotice) {
+      throw new RuntimeException();
+    }
+  }
+
+  public void validateExistAnonymousBoard() {
+    if (this.existAnonymous) {
       throw new RuntimeException();
     }
   }
