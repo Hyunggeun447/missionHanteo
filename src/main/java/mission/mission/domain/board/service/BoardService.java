@@ -36,6 +36,10 @@ public class BoardService {
   }
 
   public void delete(Long id) {
+    Board board = boardRepository.findById(id)
+        .orElseThrow(RuntimeException::new);
+
+    board.removeTeam();
     boardRepository.deleteById(id);
   }
 }
