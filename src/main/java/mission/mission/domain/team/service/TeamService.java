@@ -1,6 +1,7 @@
 package mission.mission.domain.team.service;
 
 import lombok.RequiredArgsConstructor;
+import mission.mission.domain.board.entity.AnonymousBoard;
 import mission.mission.domain.team.dto.request.CreateTeamRequest;
 import mission.mission.domain.team.dto.request.UpdateTeamRequest;
 import mission.mission.domain.team.entity.Team;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TeamService {
 
   private final TeamRepository teamRepository;
+  private final AnonymousBoard anonymousBoard;
 
   public Long save(CreateTeamRequest request) {
     Team team = new Team(request.getName(), request.getGender());
@@ -28,6 +30,13 @@ public class TeamService {
 
   public void delete(Long id) {
     teamRepository.deleteById(id);
+  }
+
+  public void addAnonymousBoard(Long id) {
+    Team team = teamRepository.findById(id).orElseThrow(RuntimeException::new);
+    team.validateExistAnonymousBoard();
+    team.addAnonymousBoard(anonymousBoard);
+    team.changeExistAnonymousBoard(true);
   }
 
 }
