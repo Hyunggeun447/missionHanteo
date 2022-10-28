@@ -6,6 +6,7 @@ import static mission.mission.domain.board.constant.BoardConstant.NOTICE_BOARD_S
 import static org.assertj.core.api.Assertions.assertThat;
 
 import mission.mission.domain.board.dto.request.CreateBoardRequest;
+import mission.mission.domain.board.dto.request.UpdateBoardRequest;
 import mission.mission.domain.board.entity.Board;
 import mission.mission.domain.board.entity.MemberBoard;
 import mission.mission.domain.board.entity.NoticeBoard;
@@ -36,9 +37,15 @@ class BoardServiceTest {
   @Autowired
   TeamRepository teamRepository;
 
+  @AfterEach
+  void clean() {
+    teamRepository.deleteAll();
+    boardRepository.deleteAll();
+  }
+
   @Nested
-  @DisplayName("saveMemberBoard")
-  class saveMemberBoard {
+  @DisplayName("saveBoard")
+  class saveBoard {
 
     Team team;
     CreateBoardRequest createMemberRequest;
@@ -74,7 +81,8 @@ class BoardServiceTest {
       Long id = boardService.saveBoard(createMemberRequest);
 
       //then
-      MemberBoard board = (MemberBoard) boardRepository.findById(id).orElseThrow(RuntimeException::new);
+      MemberBoard board = (MemberBoard) boardRepository.findById(id)
+          .orElseThrow(RuntimeException::new);
       assertThat(createMemberRequest)
           .usingRecursiveComparison()
           .ignoringFields("teamId", "boardType")
@@ -92,11 +100,93 @@ class BoardServiceTest {
       Long id = boardService.saveBoard(createNoticeRequest);
 
       //then
-      NoticeBoard board = (NoticeBoard) boardRepository.findById(id).orElseThrow(RuntimeException::new);
+      NoticeBoard board = (NoticeBoard) boardRepository.findById(id)
+          .orElseThrow(RuntimeException::new);
 
       assertThat(board.getTeam()).isEqualTo(team);
       assertThat(board.getName()).isEqualTo(NOTICE_BOARD_NAME);
       assertThat(board.getSeq()).isEqualTo(NOTICE_BOARD_SEQ);
+    }
+
+  }
+
+  @Nested
+  @DisplayName("update")
+  class update {
+
+    Team team1;
+    Team team2;
+
+    Long memberId;
+    Long noticeId;
+
+    @BeforeEach
+    void setup() {
+      team1 = teamRepository.save(new Team("엑소", Gender.MALE));
+      team2 = teamRepository.save(new Team("블랙핑크", Gender.FEMALE));
+
+      memberId = boardService.saveBoard(
+          CreateBoardRequest.builder()
+              .name("백현")
+              .teamId(team1.getId())
+              .boardType(BoardType.MEMBER)
+              .build());
+
+      noticeId = boardService.saveBoard(
+          CreateBoardRequest.builder()
+              .teamId(team1.getId())
+              .boardType(BoardType.NOTICE)
+              .build());
+    }
+
+    @Test
+    @DisplayName("성공: memberBoard 변경 -> 이름 변경 가능, team 변경 가능")
+    public void s_memberBoard() throws Exception {
+
+      //given
+      String newBoardName = "백현 -> 현백";
+      Long newTeamId = team2.getId();
+
+      UpdateBoardRequest request = UpdateBoardRequest.builder()
+          .id(memberId)
+          .name(newBoardName)
+          .teamId(newTeamId)
+          .build();
+
+      //when
+      boardService.update(request);
+
+      //then
+      Board memberBoard = boardRepository.findById(memberId).orElseThrow(RuntimeException::new);
+      assertThat(memberBoard.getName()).isEqualTo(newBoardName);
+
+      assertThat(team1.getBoardList()).doesNotContain(memberBoard);
+      assertThat(team2.getBoardList()).contains(memberBoard);
+    }
+
+    @Test
+    @DisplayName("성공: noticeBoard 변경 -> 이름 변경 불가능, team 변경 가능")
+    public void s_noticeBoard() throws Exception {
+
+      //given
+      String newBoardName = "백현 -> 현백";
+      Long newTeamId = team2.getId();
+
+      UpdateBoardRequest request = UpdateBoardRequest.builder()
+          .id(noticeId)
+          .name(newBoardName)
+          .teamId(newTeamId)
+          .build();
+
+      //when
+      boardService.update(request);
+
+      //then
+      Board noticeBoard = boardRepository.findById(noticeId).orElseThrow(RuntimeException::new);
+      assertThat(noticeBoard.getName()).isEqualTo(NOTICE_BOARD_NAME);
+
+      assertThat(team1.getBoardList()).doesNotContain(noticeBoard);
+      assertThat(team2.getBoardList()).contains(noticeBoard);
     }
 
   }

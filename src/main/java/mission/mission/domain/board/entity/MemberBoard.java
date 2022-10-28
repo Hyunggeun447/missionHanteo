@@ -26,7 +26,7 @@ public class MemberBoard extends Board {
   @Override
   public void addTeam(Team team) {
     if (Objects.nonNull(this.getTeam())) {
-      team.getBoardList().remove(this);
+      this.getTeam().getBoardList().remove(this);
     }
     team.addBoard(this);
     setTeam(team);
