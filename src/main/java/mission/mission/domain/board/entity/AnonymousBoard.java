@@ -1,0 +1,33 @@
+package mission.mission.domain.board.entity;
+
+import static mission.mission.domain.board.constant.SequenceConstant.ANONYMOUS_BOARD_NAME;
+import static mission.mission.domain.board.constant.SequenceConstant.ANONYMOUS_BOARD_SEQ;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import mission.mission.domain.team.entity.Team;
+import org.springframework.stereotype.Component;
+
+@Entity
+@DiscriminatorValue("Anonymous")
+@Getter
+@Component
+@NoArgsConstructor
+public class AnonymousBoard extends Board {
+
+  private String name = ANONYMOUS_BOARD_NAME;
+  private int seq = ANONYMOUS_BOARD_SEQ;
+
+  @Override
+  public void addTeam(Team team) {
+    return;
+  }
+
+  @Override
+  public void changeName(String name) {
+    return;
+  }
+}
