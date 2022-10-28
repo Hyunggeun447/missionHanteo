@@ -17,7 +17,6 @@ import mission.mission.domain.team.entity.Team;
 import mission.mission.domain.team.repository.TeamRepository;
 import mission.mission.domain.team.value.Gender;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

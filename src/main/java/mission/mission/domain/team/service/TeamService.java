@@ -1,7 +1,9 @@
 package mission.mission.domain.team.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mission.mission.domain.board.entity.AnonymousBoard;
+import mission.mission.domain.board.entity.Board;
 import mission.mission.domain.team.dto.request.CreateTeamRequest;
 import mission.mission.domain.team.dto.request.UpdateTeamRequest;
 import mission.mission.domain.team.entity.Team;
@@ -29,6 +31,8 @@ public class TeamService {
   }
 
   public void delete(Long id) {
+    Team team = teamRepository.findById(id).orElseThrow(RuntimeException::new);
+    team.delete();
     teamRepository.deleteById(id);
   }
 

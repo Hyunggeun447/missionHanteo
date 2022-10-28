@@ -2,7 +2,6 @@ package mission.mission.domain.team.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mission.mission.domain.board.entity.AnonymousBoard;
 import mission.mission.domain.board.entity.Board;
-import mission.mission.domain.board.entity.NoticeBoard;
 import mission.mission.domain.team.value.Gender;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SQLDelete;
@@ -99,6 +97,10 @@ public class Team {
     if (this.existAnonymous) {
       throw new RuntimeException();
     }
+  }
+
+  public void delete() {
+    this.getBoardList().forEach(board -> board.removeTeam());
   }
 
   public void addBoard(Board board) {

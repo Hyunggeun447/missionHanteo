@@ -39,7 +39,7 @@ public class BoardService {
     Board board = boardRepository.findById(id)
         .orElseThrow(RuntimeException::new);
 
-    board.removeTeam();
+    board.removeBoard();
     boardRepository.deleteById(id);
   }
 }

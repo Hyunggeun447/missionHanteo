@@ -55,8 +55,12 @@ public abstract class Board {
 
   public abstract void addTeam(Team team);
 
-  public void removeTeam() {
+  public void removeBoard() {
     this.team.getBoardList().remove(this);
+    removeTeam();
+  }
+
+  public void removeTeam() {
     this.team = null;
   }
 

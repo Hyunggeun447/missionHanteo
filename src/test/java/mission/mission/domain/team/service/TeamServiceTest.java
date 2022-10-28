@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import mission.mission.domain.board.entity.Board;
 import mission.mission.domain.board.repository.BoardRepository;
+import mission.mission.domain.board.value.BoardType;
 import mission.mission.domain.team.dto.request.CreateTeamRequest;
 import mission.mission.domain.team.dto.request.UpdateTeamRequest;
 import mission.mission.domain.team.entity.Team;
@@ -29,9 +30,13 @@ class TeamServiceTest {
   @Autowired
   TeamRepository teamRepository;
 
+  @Autowired
+  BoardRepository boardRepository;
+
   @AfterEach
   void clean() {
     teamRepository.deleteAll();
+    boardRepository.deleteAll();
   }
 
   @Nested
@@ -110,6 +115,10 @@ class TeamServiceTest {
 
     Long teamId;
 
+    Board board1;
+    Board board2;
+    Team team;
+
     @BeforeEach
     void setup() {
       String teamName = "엑소";
@@ -120,6 +129,10 @@ class TeamServiceTest {
           .build();
 
       teamId = teamService.save(request);
+
+      team = teamRepository.findById(teamId).orElseThrow(RuntimeException::new);
+      board1 = boardRepository.save(BoardType.MEMBER.createBoard("name", team));
+      board2 = boardRepository.save(BoardType.MEMBER.createBoard("name", team));
     }
 
     @Test
@@ -132,7 +145,8 @@ class TeamServiceTest {
       //then
       assertThrows(RuntimeException.class,
           () -> teamRepository.findById(teamId).orElseThrow(RuntimeException::new));
-
+      assertThat(board1.getTeam()).isNull();
+      assertThat(board2.getTeam()).isNull();
     }
 
   }
@@ -181,9 +195,6 @@ class TeamServiceTest {
     }
 
   }
-
-  @Autowired
-  BoardRepository boardRepository;
 
   @Test
   @DisplayName("싱글톤 유지 확인 테스트")
