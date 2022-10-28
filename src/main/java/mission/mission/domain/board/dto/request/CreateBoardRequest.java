@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mission.mission.domain.board.value.BoardType;
 
 @Getter
 @Builder
@@ -15,5 +16,7 @@ public class CreateBoardRequest {
   private String name;
 
   private Long teamId;
+
+  private BoardType boardType;
 
 }

@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import mission.mission.domain.board.dto.request.CreateBoardRequest;
 import mission.mission.domain.board.dto.request.UpdateBoardRequest;
 import mission.mission.domain.board.entity.Board;
-import mission.mission.domain.board.entity.MemberBoard;
-import mission.mission.domain.board.entity.NoticeBoard;
 import mission.mission.domain.board.repository.BoardRepository;
 import mission.mission.domain.team.entity.Team;
 import mission.mission.domain.team.repository.TeamRepository;
@@ -20,22 +18,11 @@ public class BoardService {
   private final BoardRepository boardRepository;
   private final TeamRepository teamRepository;
 
-  public Long saveMemberBoard(CreateBoardRequest request) {
+  public Long saveBoard(CreateBoardRequest request) {
     Team team = teamRepository.findById(request.getTeamId())
         .orElseThrow(RuntimeException::new);
-    MemberBoard memberBoard = new MemberBoard(request.getName(), team);
-    return boardRepository.save(memberBoard).getId();
-  }
-
-  public Long saveNoticeBoard(CreateBoardRequest request) {
-    Team team = teamRepository.findById(request.getTeamId())
-        .orElseThrow(RuntimeException::new);
-
-    team.validateExistNoticeBoard();
-
-    NoticeBoard noticeBoard = new NoticeBoard(team);
-    team.changeExistNoticeBoard(true);
-    return boardRepository.save(noticeBoard).getId();
+    Board board = request.getBoardType().createBoard(request.getName(), team);
+    return boardRepository.save(board).getId();
   }
 
   public void update(UpdateBoardRequest request) {
