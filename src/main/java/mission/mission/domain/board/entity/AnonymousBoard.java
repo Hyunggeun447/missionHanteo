@@ -8,12 +8,10 @@ import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mission.mission.domain.team.entity.Team;
-import org.springframework.stereotype.Component;
 
 @Entity
 @DiscriminatorValue("Anonymous")
 @Getter
-@Component
 @NoArgsConstructor
 public class AnonymousBoard extends Board {
 
