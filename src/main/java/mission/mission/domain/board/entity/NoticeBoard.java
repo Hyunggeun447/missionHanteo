@@ -26,6 +26,11 @@ public class NoticeBoard extends Board{
   }
 
   @Override
+  public void changeName(String name) {
+    return;
+  }
+
+  @Override
   public void addTeam(Team team) {
     if (Objects.nonNull(this.getTeam())) {
       team.getBoardList().remove(this);
