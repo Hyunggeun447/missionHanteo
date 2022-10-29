@@ -16,6 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mission.mission.domain.board.entity.TeamBoard;
+import mission.mission.domain.common.exception.BadRequestException;
 import mission.mission.domain.team.value.Gender;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SQLDelete;
@@ -89,13 +90,13 @@ public class Team {
 
   public void validateExistNoticeBoard() {
     if (this.existNotice) {
-      throw new RuntimeException();
+      throw new BadRequestException("공지사항이 이미 존재합니다.");
     }
   }
 
   public void validateExistAnonymousBoard() {
     if (this.existAnonymous) {
-      throw new RuntimeException();
+      throw new BadRequestException("익명게시판이 이미 존재합니다.");
     }
   }
 

@@ -6,6 +6,7 @@ import static mission.mission.domain.board.constant.BoardConstant.ANONYMOUS_BOAR
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import lombok.Getter;
+import mission.mission.domain.common.exception.BadRequestException;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -25,6 +26,6 @@ public class AnonymousBoard extends Board {
 
   @Override
   public void changeName(String name) {
-    throw new RuntimeException();
+    throw new BadRequestException("게시판명을 변경할 수 없습니다.");
   }
 }

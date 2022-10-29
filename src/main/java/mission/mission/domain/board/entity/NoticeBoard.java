@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mission.mission.domain.common.exception.BadRequestException;
 import mission.mission.domain.team.entity.Team;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -30,7 +31,7 @@ public class NoticeBoard extends Board{
 
   @Override
   public void changeName(String name) {
-    throw new RuntimeException();
+    throw new BadRequestException("게시판명을 변경할 수 없습니다.");
   }
 
 }

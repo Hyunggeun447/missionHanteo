@@ -1,4 +1,4 @@
-package mission.mission.domain.config;
+package mission.mission.domain.common.config;
 
 import mission.mission.domain.board.entity.AnonymousBoard;
 import mission.mission.domain.board.repository.BoardRepository;

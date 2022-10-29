@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import mission.mission.domain.board.dto.request.SearchRequest;
+import mission.mission.domain.common.exception.NotFoundException;
 import mission.mission.domain.team.dto.response.BoardResponse;
 import mission.mission.domain.team.dto.response.Response;
 import mission.mission.domain.team.dto.response.TeamResponse;
@@ -34,7 +35,8 @@ public class TeamService {
   }
 
   public void update(UpdateTeamRequest request) {
-    Team team = teamRepository.findById(request.getId()).orElseThrow(RuntimeException::new);
+    Team team = teamRepository.findById(request.getId())
+        .orElseThrow(() -> new NotFoundException("팀 카테고리를 찾을 수 없습니다."));
     team.changeName(request.getName());
     team.changeGender(request.getGender());
   }
@@ -44,7 +46,8 @@ public class TeamService {
   }
 
   public void addAnonymousBoard(Long teamId) {
-    Team team = teamRepository.findById(teamId).orElseThrow(RuntimeException::new);
+    Team team = teamRepository.findById(teamId)
+        .orElseThrow(() -> new NotFoundException("팀 카테고리를 찾을 수 없습니다."));
     team.validateExistAnonymousBoard();
     TeamBoard teamBoard = new TeamBoard(team, anonymousBoard);
     team.changeExistAnonymousBoard(true);
