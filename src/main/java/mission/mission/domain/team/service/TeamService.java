@@ -12,7 +12,6 @@ import mission.mission.domain.board.dto.response.Response;
 import mission.mission.domain.board.dto.response.TeamResponse;
 import mission.mission.domain.board.entity.AnonymousBoard;
 import mission.mission.domain.board.entity.TeamBoard;
-import mission.mission.domain.board.repository.TeamBoardRepository;
 import mission.mission.domain.team.dto.request.CreateTeamRequest;
 import mission.mission.domain.team.dto.request.UpdateTeamRequest;
 import mission.mission.domain.team.entity.Team;
@@ -28,7 +27,6 @@ public class TeamService {
 
   private final TeamRepository teamRepository;
   private final AnonymousBoard anonymousBoard;
-  private final TeamBoardRepository teamBoardRepository;
 
   public Long save(CreateTeamRequest request) {
     Team team = new Team(request.getName(), request.getGender());
