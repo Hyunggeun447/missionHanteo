@@ -40,7 +40,7 @@ public class Team {
   private String name;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "Gender")
+  @Column(name = "gender")
   private Gender gender;
 
   @Column(name = "exist_notice")
@@ -50,7 +50,7 @@ public class Team {
   private Boolean existAnonymous = Boolean.FALSE;
 
   @BatchSize(size = 100)
-  @OneToMany(mappedBy = "team",cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "team", cascade = CascadeType.PERSIST, orphanRemoval = true)
   private List<TeamBoard> teamBoardList = new ArrayList<>();
 
   @Column(name = "is_deleted")
