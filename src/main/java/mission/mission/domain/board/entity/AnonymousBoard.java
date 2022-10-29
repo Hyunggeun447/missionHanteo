@@ -6,10 +6,14 @@ import static mission.mission.domain.board.constant.BoardConstant.ANONYMOUS_BOAR
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import lombok.Getter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @DiscriminatorValue("Anonymous")
 @Getter
+@Where(clause = "is_deleted = false")
+@SQLDelete(sql = "UPDATE board SET is_deleted = true WHERE id = ?")
 public class AnonymousBoard extends Board {
 
   private String name = ANONYMOUS_BOARD_NAME;

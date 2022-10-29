@@ -40,7 +40,7 @@ public abstract class Board {
   private String name;
 
   @BatchSize(size = 100)
-  @OneToMany(mappedBy = "team",cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST, orphanRemoval = true)
   private List<TeamBoard> teamBoardList = new ArrayList<>();
 
   private int seq;
