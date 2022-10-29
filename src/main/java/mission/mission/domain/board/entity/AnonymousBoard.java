@@ -6,21 +6,17 @@ import static mission.mission.domain.board.constant.BoardConstant.ANONYMOUS_BOAR
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import mission.mission.domain.team.entity.Team;
 
 @Entity
 @DiscriminatorValue("Anonymous")
 @Getter
-@NoArgsConstructor
 public class AnonymousBoard extends Board {
 
   private String name = ANONYMOUS_BOARD_NAME;
   private int seq = ANONYMOUS_BOARD_SEQ;
 
-  @Override
-  public void addTeam(Team team) {
-    return;
+  public AnonymousBoard() {
+    super();
   }
 
   @Override

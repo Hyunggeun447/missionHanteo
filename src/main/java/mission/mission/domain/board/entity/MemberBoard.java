@@ -18,17 +18,7 @@ public class MemberBoard extends Board {
 
   private int seq = MEMBER_BOARD_SEQ;
 
-  public MemberBoard(String name, Team team) {
+  public MemberBoard(String name) {
     super(name);
-    addTeam(team);
-  }
-
-  @Override
-  public void addTeam(Team team) {
-    if (Objects.nonNull(this.getTeam())) {
-      this.getTeam().getBoardList().remove(this);
-    }
-    team.addBoard(this);
-    setTeam(team);
   }
 }

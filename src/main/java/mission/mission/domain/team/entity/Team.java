@@ -2,6 +2,7 @@ package mission.mission.domain.team.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,8 +15,7 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import mission.mission.domain.board.entity.AnonymousBoard;
-import mission.mission.domain.board.entity.Board;
+import mission.mission.domain.board.entity.TeamBoard;
 import mission.mission.domain.team.value.Gender;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SQLDelete;
@@ -50,8 +50,8 @@ public class Team {
   private Boolean existAnonymous = Boolean.FALSE;
 
   @BatchSize(size = 100)
-  @OneToMany(mappedBy = "team")
-  private List<Board> boardList = new ArrayList<>();
+  @OneToMany(mappedBy = "team",cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<TeamBoard> teamBoardList = new ArrayList<>();
 
   @Column(name = "is_deleted")
   private Boolean isDeleted = Boolean.FALSE;
@@ -99,16 +99,8 @@ public class Team {
     }
   }
 
-  public void delete() {
-    this.getBoardList().forEach(board -> board.removeTeam());
-  }
-
-  public void addBoard(Board board) {
-    this.boardList.add(board);
-  }
-
-  public void addAnonymousBoard(AnonymousBoard anonymousBoard) {
-    this.boardList.add(anonymousBoard);
+  public void addTeamBoard(TeamBoard teamBoard) {
+    this.teamBoardList.add(teamBoard);
   }
 
 }

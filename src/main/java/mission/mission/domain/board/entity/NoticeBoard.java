@@ -22,7 +22,6 @@ public class NoticeBoard extends Board{
 
   public NoticeBoard(Team team) {
     super();
-    addTeam(team);
   }
 
   @Override
@@ -30,12 +29,4 @@ public class NoticeBoard extends Board{
     return;
   }
 
-  @Override
-  public void addTeam(Team team) {
-    if (Objects.nonNull(this.getTeam())) {
-      this.getTeam().getBoardList().remove(this);
-    }
-    team.addBoard(this);
-    setTeam(team);
-  }
 }

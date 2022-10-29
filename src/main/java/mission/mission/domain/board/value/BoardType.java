@@ -9,8 +9,7 @@ public enum BoardType {
   MEMBER("멤버이름 게시판"){
     @Override
     public Board createBoard(String name, Team team) {
-      MemberBoard memberBoard = new MemberBoard(name, team);
-      return memberBoard;
+      return new MemberBoard(name);
     }
   },
   NOTICE("공지사항"){
