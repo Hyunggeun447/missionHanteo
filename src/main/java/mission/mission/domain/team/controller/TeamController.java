@@ -2,7 +2,7 @@ package mission.mission.domain.team.controller;
 
 import lombok.RequiredArgsConstructor;
 import mission.mission.domain.board.dto.request.SearchRequest;
-import mission.mission.domain.board.dto.response.Response;
+import mission.mission.domain.team.dto.response.Response;
 import mission.mission.domain.team.dto.request.CreateTeamRequest;
 import mission.mission.domain.team.dto.request.UpdateTeamRequest;
 import mission.mission.domain.team.service.TeamService;

@@ -1,4 +1,4 @@
-package mission.mission.domain.board.dto.response;
+package mission.mission.domain.team.dto.response;
 
 
 import lombok.AccessLevel;
