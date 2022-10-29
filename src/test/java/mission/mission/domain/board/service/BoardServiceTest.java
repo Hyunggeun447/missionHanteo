@@ -83,7 +83,7 @@ class BoardServiceTest {
           .ignoringFields("teamId", "boardType")
           .isEqualTo(board);
 
-      assertThat(board.getTeam()).isEqualTo(team);
+      assertThat(board.getTeamBoardList().get(0).getTeam()).isEqualTo(team);
       assertThat(board.getSeq()).isEqualTo(MEMBER_BOARD_SEQ);
     }
 
@@ -98,7 +98,7 @@ class BoardServiceTest {
       NoticeBoard board = (NoticeBoard) boardRepository.findById(id)
           .orElseThrow(RuntimeException::new);
 
-      assertThat(board.getTeam()).isEqualTo(team);
+      assertThat(board.getTeamBoardList().get(0).getTeam()).isEqualTo(team);
       assertThat(board.getName()).isEqualTo(NOTICE_BOARD_NAME);
       assertThat(board.getSeq()).isEqualTo(NOTICE_BOARD_SEQ);
     }
@@ -145,7 +145,6 @@ class BoardServiceTest {
       UpdateBoardRequest request = UpdateBoardRequest.builder()
           .id(memberId)
           .name(newBoardName)
-          .teamId(newTeamId)
           .build();
 
       //when
@@ -154,9 +153,6 @@ class BoardServiceTest {
       //then
       Board memberBoard = boardRepository.findById(memberId).orElseThrow(RuntimeException::new);
       assertThat(memberBoard.getName()).isEqualTo(newBoardName);
-
-      assertThat(team1.getBoardList()).doesNotContain(memberBoard);
-      assertThat(team2.getBoardList()).contains(memberBoard);
     }
 
     @Test
@@ -170,7 +166,6 @@ class BoardServiceTest {
       UpdateBoardRequest request = UpdateBoardRequest.builder()
           .id(noticeId)
           .name(newBoardName)
-          .teamId(newTeamId)
           .build();
 
       //when
@@ -179,9 +174,6 @@ class BoardServiceTest {
       //then
       Board noticeBoard = boardRepository.findById(noticeId).orElseThrow(RuntimeException::new);
       assertThat(noticeBoard.getName()).isEqualTo(NOTICE_BOARD_NAME);
-
-      assertThat(team1.getBoardList()).doesNotContain(noticeBoard);
-      assertThat(team2.getBoardList()).contains(noticeBoard);
     }
 
   }
@@ -214,7 +206,7 @@ class BoardServiceTest {
     }
 
     @Test
-    @DisplayName("성공: 연관관계 제거 후 삭제")
+    @DisplayName("성공: 삭제")
     public void s() throws Exception {
 
       //given
@@ -226,11 +218,8 @@ class BoardServiceTest {
       //then
       assertThrows(RuntimeException.class,
           () -> boardRepository.findById(memberId).orElseThrow(RuntimeException::new));
-
-      assertThat(team1.getBoardList()).doesNotContain(board);
     }
 
   }
-
 
 }
