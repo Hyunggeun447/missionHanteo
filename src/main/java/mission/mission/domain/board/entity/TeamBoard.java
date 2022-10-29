@@ -24,7 +24,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TeamBoard {
+public class TeamBoard implements Comparable<TeamBoard> {
 
   @Id
   @GeneratedValue
@@ -39,12 +39,15 @@ public class TeamBoard {
   @JoinColumn(name = "board_id")
   private Board board;
 
+  private int seq;
+
   @Column(name = "is_deleted")
   private Boolean isDeleted = Boolean.FALSE;
 
   public TeamBoard(Team team, Board board) {
     addTeam(team);
     addBoard(board);
+    this.seq = board.getSeq();
   }
 
   public void addTeam(Team team) {
@@ -63,4 +66,17 @@ public class TeamBoard {
     this.board = board;
   }
 
+  @Override
+  public int compareTo(TeamBoard o) {
+    if (this.getSeq() > o.getSeq()) {
+      return 1;
+    } else if (this.getSeq() < o.getSeq()) {
+      return -1;
+    } else if (this.getId() > o.getId()) {
+      return 1;
+    } else if (this.getId() < o.getId()) {
+      return -1;
+    }
+    return 0;
+  }
 }
