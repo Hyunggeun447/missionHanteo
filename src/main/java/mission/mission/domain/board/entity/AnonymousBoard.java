@@ -25,6 +25,6 @@ public class AnonymousBoard extends Board {
 
   @Override
   public void changeName(String name) {
-    return;
+    throw new RuntimeException();
   }
 }
