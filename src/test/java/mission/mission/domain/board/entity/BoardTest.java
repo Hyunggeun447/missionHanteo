@@ -46,12 +46,14 @@ class BoardTest {
     String name = "첸";
 
     //when
-    MemberBoard memberBoard = new MemberBoard(name, team);
+    MemberBoard memberBoard = new MemberBoard(name);
+    TeamBoard teamBoard = new TeamBoard(team, memberBoard);
 
     //then
-    assertThat(team.getBoardList().size()).isEqualTo(1);
+    assertThat(team.getTeamBoardList().size()).isEqualTo(1);
     assertThat(memberBoard.getName()).isEqualTo(name);
-    assertThat(memberBoard.getTeam()).isEqualTo(team);
+    assertThat(memberBoard.getTeamBoardList()).contains(teamBoard);
+    assertThat(teamBoard.getTeam()).isEqualTo(team);
     assertThat(memberBoard.getSeq()).isEqualTo(MEMBER_BOARD_SEQ);
     assertThat(memberBoard.getIsDeleted()).isFalse();
   }
@@ -64,11 +66,14 @@ class BoardTest {
 
     //when
     NoticeBoard noticeBoard = new NoticeBoard(team);
+    TeamBoard teamBoard = new TeamBoard(team, noticeBoard);
+
 
     //then
-    assertThat(team.getBoardList().size()).isEqualTo(1);
+    assertThat(team.getTeamBoardList().size()).isEqualTo(1);
     assertThat(noticeBoard.getName()).isEqualTo(NOTICE_BOARD_NAME);
-    assertThat(noticeBoard.getTeam()).isEqualTo(team);
+    assertThat(noticeBoard.getTeamBoardList()).contains(teamBoard);
+    assertThat(teamBoard.getTeam()).isEqualTo(team);
     assertThat(noticeBoard.getSeq()).isEqualTo(NOTICE_BOARD_SEQ);
     assertThat(noticeBoard.getIsDeleted()).isFalse();
   }
@@ -78,12 +83,13 @@ class BoardTest {
   public void s_anonymousBoard() throws Exception {
 
     //given
-    team.addAnonymousBoard(anonymousBoard);
+    TeamBoard teamBoard = new TeamBoard(team, anonymousBoard);
 
     //then
-    assertThat(team.getBoardList().size()).isEqualTo(1);
+    assertThat(team.getTeamBoardList().size()).isEqualTo(1);
     assertThat(anonymousBoard.getName()).isEqualTo("익명게시판");
-    assertThat(anonymousBoard.getTeam()).isNull();
+    assertThat(anonymousBoard.getTeamBoardList()).contains(teamBoard);
+    assertThat(team.getTeamBoardList()).contains(teamBoard);
     assertThat(anonymousBoard.getSeq()).isEqualTo(ANONYMOUS_BOARD_SEQ);
     assertThat(anonymousBoard.getIsDeleted()).isFalse();
   }
