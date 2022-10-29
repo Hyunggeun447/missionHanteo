@@ -169,11 +169,9 @@ class BoardServiceTest {
           .build();
 
       //when
-      boardService.update(request);
 
       //then
-      Board noticeBoard = boardRepository.findById(noticeId).orElseThrow(RuntimeException::new);
-      assertThat(noticeBoard.getName()).isEqualTo(NOTICE_BOARD_NAME);
+      assertThrows(RuntimeException.class, () -> boardService.update(request));
     }
 
   }
