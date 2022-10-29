@@ -51,7 +51,7 @@ public class TeamService {
   }
 
   @Transactional(readOnly = true)
-  public Response searchBoard(SearchBoardRequest request) {
+  public Response searchResult(SearchBoardRequest request) {
     Map<Gender, List<TeamResponse>> teamResponseMap = new HashMap<>();
 
     List<Team> teamList = teamRepository.search(request);

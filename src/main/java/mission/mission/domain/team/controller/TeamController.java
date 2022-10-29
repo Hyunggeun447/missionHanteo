@@ -50,8 +50,8 @@ public class TeamController {
 
   @GetMapping("/search")
   @ResponseStatus(HttpStatus.OK)
-  public Response getTeamALL(@RequestBody SearchBoardRequest request) {
-    return teamService.searchBoard(request);
+  public Response searchResult(@RequestBody SearchBoardRequest request) {
+    return teamService.searchResult(request);
   }
 
 }
