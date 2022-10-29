@@ -16,6 +16,4 @@ public class UpdateBoardRequest {
 
   private String name;
 
-  private Long teamId;
-
 }
