@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mission.mission.domain.board.dto.request.CreateBoardRequest;
 import mission.mission.domain.board.dto.request.UpdateBoardRequest;
 import mission.mission.domain.board.entity.Board;
+import mission.mission.domain.board.entity.TeamBoard;
 import mission.mission.domain.board.repository.BoardRepository;
 import mission.mission.domain.team.entity.Team;
 import mission.mission.domain.team.repository.TeamRepository;
@@ -22,6 +23,9 @@ public class BoardService {
     Team team = teamRepository.findById(request.getTeamId())
         .orElseThrow(RuntimeException::new);
     Board board = request.getBoardType().createBoard(request.getName(), team);
+
+    TeamBoard teamBoard = new TeamBoard(team, board);
+
     return boardRepository.save(board).getId();
   }
 
@@ -29,17 +33,9 @@ public class BoardService {
     Board board = boardRepository.findById(request.getId())
         .orElseThrow(RuntimeException::new);
     board.changeName(request.getName());
-
-    Team team = teamRepository.findById(request.getTeamId())
-        .orElseThrow(RuntimeException::new);
-    board.addTeam(team);
   }
 
   public void delete(Long boardId) {
-    Board board = boardRepository.findById(boardId)
-        .orElseThrow(RuntimeException::new);
-
-    board.removeBoard();
     boardRepository.deleteById(boardId);
   }
 }
