@@ -1,11 +1,14 @@
 package mission.mission.domain.team.controller;
 
 import lombok.RequiredArgsConstructor;
+import mission.mission.domain.board.dto.request.SearchBoardRequest;
+import mission.mission.domain.board.dto.response.Response;
 import mission.mission.domain.team.dto.request.CreateTeamRequest;
 import mission.mission.domain.team.dto.request.UpdateTeamRequest;
 import mission.mission.domain.team.service.TeamService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +46,12 @@ public class TeamController {
   @ResponseStatus(HttpStatus.OK)
   public void getAnonymousBoard(@RequestParam Long teamId) {
     teamService.addAnonymousBoard(teamId);
+  }
+
+  @GetMapping("/search")
+  @ResponseStatus(HttpStatus.OK)
+  public Response getTeamALL(@RequestBody SearchBoardRequest request) {
+    return teamService.searchBoard(request);
   }
 
 }
