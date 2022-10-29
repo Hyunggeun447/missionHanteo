@@ -28,6 +28,7 @@ public class TeamSearchRepositoryImpl implements TeamSearchRepository {
         .leftJoin(board)
         .on(team.teamBoardList.any().board.eq(board))
         .where(
+            boardIdEq(request.getBoardId()),
             boardNameEq(request.getBoardName()),
             teamNameEq(request.getTeamName()),
             genderEq(request.getGender())
@@ -49,5 +50,9 @@ public class TeamSearchRepositoryImpl implements TeamSearchRepository {
 
   private BooleanExpression genderEq(Gender gender) {
     return ObjectUtils.isEmpty(gender) ? null : team.gender.eq(gender);
+  }
+
+  private BooleanExpression boardIdEq(Long boardId) {
+    return ObjectUtils.isEmpty(boardId) ? null : board.id.eq(boardId);
   }
 }
