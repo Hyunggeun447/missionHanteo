@@ -145,8 +145,8 @@ class TeamServiceTest {
       //then
       assertThrows(RuntimeException.class,
           () -> teamRepository.findById(teamId).orElseThrow(RuntimeException::new));
-      assertThat(board1.getTeam()).isNull();
-      assertThat(board2.getTeam()).isNull();
+      assertThat(board1.getTeamBoardList()).isEmpty();
+      assertThat(board2.getTeamBoardList()).isEmpty();
     }
 
   }
@@ -178,7 +178,7 @@ class TeamServiceTest {
 
       //then
       Team team = teamRepository.findById(teamId).orElseThrow(RuntimeException::new);
-      assertThat(team.getBoardList().size()).isEqualTo(1);
+      assertThat(team.getTeamBoardList().size()).isEqualTo(1);
       assertThat(team.getExistAnonymous()).isTrue();
 
     }
@@ -226,8 +226,8 @@ class TeamServiceTest {
     Team team1 = teamRepository.findById(teamId1).orElseThrow(RuntimeException::new);
     Team team2 = teamRepository.findById(teamId2).orElseThrow(RuntimeException::new);
 
-    Board board1 = team1.getBoardList().get(0);
-    Board board2 = team2.getBoardList().get(0);
+    Board board1 = team1.getTeamBoardList().get(0).getBoard();
+    Board board2 = team2.getTeamBoardList().get(0).getBoard();
 
     assertThat(board1.getId()).isNotNull();
     assertThat(board1).isEqualTo(board2);
