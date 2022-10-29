@@ -7,7 +7,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import javax.persistence.EntityManager;
-import mission.mission.domain.board.dto.request.SearchBoardRequest;
+import mission.mission.domain.board.dto.request.SearchRequest;
 import mission.mission.domain.team.entity.Team;
 import mission.mission.domain.team.value.Gender;
 import org.springframework.util.ObjectUtils;
@@ -21,7 +21,7 @@ public class TeamSearchRepositoryImpl implements TeamSearchRepository {
   }
 
   @Override
-  public List<Team> search(SearchBoardRequest request) {
+  public List<Team> search(SearchRequest request) {
 
     return jpaQueryFactory.selectDistinct(team)
         .from(team)

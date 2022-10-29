@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import mission.mission.domain.board.dto.request.SearchBoardRequest;
+import mission.mission.domain.board.dto.request.SearchRequest;
 import mission.mission.domain.board.dto.response.BoardResponse;
 import mission.mission.domain.board.dto.response.Response;
 import mission.mission.domain.board.dto.response.TeamResponse;
@@ -51,7 +51,7 @@ public class TeamService {
   }
 
   @Transactional(readOnly = true)
-  public Response searchResult(SearchBoardRequest request) {
+  public Response searchResult(SearchRequest request) {
     Map<Gender, List<TeamResponse>> teamResponseMap = new HashMap<>();
 
     List<Team> teamList = teamRepository.search(request);

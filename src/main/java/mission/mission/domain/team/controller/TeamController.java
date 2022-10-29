@@ -1,7 +1,7 @@
 package mission.mission.domain.team.controller;
 
 import lombok.RequiredArgsConstructor;
-import mission.mission.domain.board.dto.request.SearchBoardRequest;
+import mission.mission.domain.board.dto.request.SearchRequest;
 import mission.mission.domain.board.dto.response.Response;
 import mission.mission.domain.team.dto.request.CreateTeamRequest;
 import mission.mission.domain.team.dto.request.UpdateTeamRequest;
@@ -50,7 +50,7 @@ public class TeamController {
 
   @GetMapping("/search")
   @ResponseStatus(HttpStatus.OK)
-  public Response searchResult(@RequestBody SearchBoardRequest request) {
+  public Response searchResult(@RequestBody SearchRequest request) {
     return teamService.searchResult(request);
   }
 

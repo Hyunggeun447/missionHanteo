@@ -11,7 +11,7 @@ import mission.mission.domain.team.value.Gender;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class SearchBoardRequest {
+public class SearchRequest {
 
   private Gender gender;
   private String teamName;
