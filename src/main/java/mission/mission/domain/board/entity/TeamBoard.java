@@ -43,8 +43,8 @@ public class TeamBoard {
   private Boolean isDeleted = Boolean.FALSE;
 
   public TeamBoard(Team team, Board board) {
-    this.team = team;
-    this.board = board;
+    addTeam(team);
+    addBoard(board);
   }
 
   public void addTeam(Team team) {
@@ -55,7 +55,7 @@ public class TeamBoard {
     this.team = team;
   }
 
-  public void addTeam(Board board) {
+  public void addBoard(Board board) {
     if (Objects.nonNull(this.board)) {
       this.board.getTeamBoardList().remove(this);
     }
